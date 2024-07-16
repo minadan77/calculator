@@ -51,17 +51,19 @@ function compute() {
 
 function clearDisplay() {
     display.value = '';
-    currentOperation = '';
-    firstOperand = '';
-    secondOperand = '';
 }
 
 function calculatePercentage() {
     let amount = parseFloat(percentageAmount.value);
     let percentage = parseFloat(percentageValue.value);
-    let result = amount + (amount * (percentage / 100));
+    let result;
+    if (percentage > 0) {
+        result = amount + (amount * (percentage / 100));
+    } else {
+        result = amount + (amount * (percentage / 100));
+    }
     percentageResult.innerText = `Resultado: ${result}`;
-    addToHistory(`${amount} ${percentage > 0 ? '+' : ''}${percentage}% = ${result}`);
+    addToHistory(`Porcentaje de ${amount} con ${percentage}% -> ${result}`);
 }
 
 function calculateRuleOfThree() {
@@ -70,7 +72,6 @@ function calculateRuleOfThree() {
     let y = parseFloat(yValue.value);
     let yPercent = parseFloat(yPercentage.value);
     let result;
-
     if (isNaN(x)) {
         result = (y * xPercent) / yPercent;
         xValue.value = result;
@@ -103,6 +104,18 @@ function convertUnits() {
             break;
         case 'milesToKm':
             result = input / 0.621371;
+            break;
+        case 'knotsToKmh':
+            result = input * 1.852;
+            break;
+        case 'kmhToKnots':
+            result = input / 1.852;
+            break;
+        case 'hectaresToKm2':
+            result = input * 0.01;
+            break;
+        case 'km2ToHectares':
+            result = input / 0.01;
             break;
     }
     convertResult.innerText = `Resultado: ${result}`;
