@@ -6,78 +6,72 @@
     <title>Calculadora PWA</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.png" type="image/png">
 </head>
 <body>
-    <div class="app-container">
-        <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'calculadora')">Calculadora</button>
-            <button class="tablinks" onclick="openTab(event, 'porcentaje')">Porcentaje</button>
-            <button class="tablinks" onclick="openTab(event, 'reglaDeTres')">Regla de Tres</button>
-            <button class="tablinks" onclick="openTab(event, 'conversor')">Conversor</button>
+    <div id="app">
+        <div id="tabs">
+            <button class="tab-button active" data-tab="calculator">Calculadora</button>
+            <button class="tab-button" data-tab="percentage">Porcentaje</button>
+            <button class="tab-button" data-tab="rule-of-three">Regla de Tres</button>
+            <button class="tab-button" data-tab="unit-converter">Conversor</button>
         </div>
 
-        <div id="calculadora" class="tabcontent">
+        <div id="calculator" class="tab-content active">
             <input type="text" id="display" readonly>
             <div class="buttons">
-                <button onclick="appendNumber('7')">7</button>
-                <button onclick="appendNumber('8')">8</button>
-                <button onclick="appendNumber('9')">9</button>
-                <button onclick="chooseOperation('/')">/</button>
-                <button onclick="appendNumber('4')">4</button>
-                <button onclick="appendNumber('5')">5</button>
-                <button onclick="appendNumber('6')">6</button>
-                <button onclick="chooseOperation('*')">*</button>
-                <button onclick="appendNumber('1')">1</button>
-                <button onclick="appendNumber('2')">2</button>
-                <button onclick="appendNumber('3')">3</button>
-                <button onclick="chooseOperation('-')">-</button>
-                <button onclick="appendNumber('0')">0</button>
-                <button onclick="appendDot()">.</button>
-                <button onclick="clearDisplay()">C</button>
-                <button onclick="chooseOperation('+')">+</button>
-                <button onclick="compute()" class="equal">=</button>
+                <button>7</button><button>8</button><button>9</button><button>/</button>
+                <button>4</button><button>5</button><button>6</button><button>*</button>
+                <button>1</button><button>2</button><button>3</button><button>-</button>
+                <button>0</button><button>.</button><button>=</button><button>+</button>
+                <button class="wide">C</button>
             </div>
         </div>
 
-        <div id="porcentaje" class="tabcontent">
-            <input type="number" id="percentageAmount" placeholder="Cantidad">
-            <input type="number" id="percentageValue" placeholder="Porcentaje">
-            <select id="percentageType">
-                <option value="increase">Aumentar</option>
-                <option value="decrease">Disminuir</option>
-            </select>
-            <button onclick="calculatePercentage()">Calcular</button>
-            <p id="percentageResult"></p>
+        <div id="percentage" class="tab-content">
+            <input type="number" id="baseAmount" placeholder="Cantidad base">
+            <input type="number" id="percentageChange" placeholder="Cambio porcentual (ej: -10 o 15)">
+            <button id="calculatePercentage">Calcular</button>
+            <div id="percentageResult"></div>
         </div>
 
-        <div id="reglaDeTres" class="tabcontent">
-            <div class="rule-of-three-grid">
-                <input type="number" id="xValue" placeholder="X">
-                <input type="number" id="xPercentage" placeholder="%">
-                <input type="number" id="yValue" placeholder="Y">
-                <input type="number" id="yPercentage" placeholder="%">
+        <div id="rule-of-three" class="tab-content">
+            <div class="rule-inputs">
+                <input type="number" id="x-value" placeholder="X">
+                <input type="number" id="x-percent" placeholder="%">
+                <input type="number" id="y-value" placeholder="Y">
+                <input type="number" id="y-percent" placeholder="%">
             </div>
-            <button onclick="calculateRuleOfThree()">Calcular</button>
-            <button onclick="clearRuleOfThree()">Borrar</button>
-            <p id="ruleOfThreeResult"></p>
+            <button id="calculateRule">Calcular</button>
+            <button id="clearRule">Borrar</button>
+            <div id="ruleResult"></div>
         </div>
 
-        <div id="conversor" class="tabcontent">
-            <select id="convertFrom">
-                <option value="kgToLbs">Kilogramos a Libras</option>
-                <option value="lbsToKg">Libras a Kilogramos</option>
-                <option value="kmToMiles">Kilómetros a Millas</option>
-                <option value="milesToKm">Millas a Kilómetros</option>
-                <option value="knotsToKmh">Nudos a Kilómetros/Hora</option>
-                <option value="kmhToKnots">Kilómetros/Hora a Nudos</option>
-                <option value="hectaresToKm2">Hectáreas a Km²</option>
-                <option value="km2ToHectares">Km² a Hectáreas</option>
+        <div id="unit-converter" class="tab-content">
+            <select id="conversionType">
+                <option value="length">Longitud</option>
+                <option value="weight">Peso</option>
+                <option value="temperature">Temperatura</option>
+                <option value="speed">Velocidad</option>
+                <option value="area">Área</option>
             </select>
-            <input type="number" id="convertInput" placeholder="Cantidad">
-            <button onclick="convertUnits()">Convertir</button>
-            <p id="convertResult"></p>
+            <input type="number" id="fromValue">
+            <select id="fromUnit"></select>
+            <select id="toUnit"></select>
+            <div id="convertResult"></div>
+        </div>
+
+        <div id="history">
+            <h3>Historial</h3>
+            <ul id="historyList"></ul>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js');
+        }
+    </script>
 </body>
 </html>
