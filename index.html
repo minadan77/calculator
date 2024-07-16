@@ -8,50 +8,49 @@
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <main>
+    <div class="app-container">
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'calculadora')">Calculadora</button>
             <button class="tablinks" onclick="openTab(event, 'porcentaje')">Porcentaje</button>
             <button class="tablinks" onclick="openTab(event, 'reglaDeTres')">Regla de Tres</button>
-            <button class="tablinks" onclick="openTab(event, 'conversor')">Conversor de Unidades</button>
+            <button class="tablinks" onclick="openTab(event, 'conversor')">Conversor</button>
         </div>
 
         <div id="calculadora" class="tabcontent">
-            <h2>Calculadora</h2>
-            <div id="calc">
-                <input type="text" id="display" readonly>
-                <div class="buttons">
-                    <button onclick="appendNumber('1')">1</button>
-                    <button onclick="appendNumber('2')">2</button>
-                    <button onclick="appendNumber('3')">3</button>
-                    <button onclick="chooseOperation('+')">+</button>
-                    <button onclick="appendNumber('4')">4</button>
-                    <button onclick="appendNumber('5')">5</button>
-                    <button onclick="appendNumber('6')">6</button>
-                    <button onclick="chooseOperation('-')">-</button>
-                    <button onclick="appendNumber('7')">7</button>
-                    <button onclick="appendNumber('8')">8</button>
-                    <button onclick="appendNumber('9')">9</button>
-                    <button onclick="chooseOperation('*')">*</button>
-                    <button onclick="appendNumber('0')">0</button>
-                    <button onclick="appendDot()">.</button>
-                    <button onclick="clearDisplay()">C</button>
-                    <button onclick="chooseOperation('/')">/</button>
-                    <button onclick="compute()">=</button>
-                </div>
+            <input type="text" id="display" readonly>
+            <div class="buttons">
+                <button onclick="appendNumber('7')">7</button>
+                <button onclick="appendNumber('8')">8</button>
+                <button onclick="appendNumber('9')">9</button>
+                <button onclick="chooseOperation('/')">/</button>
+                <button onclick="appendNumber('4')">4</button>
+                <button onclick="appendNumber('5')">5</button>
+                <button onclick="appendNumber('6')">6</button>
+                <button onclick="chooseOperation('*')">*</button>
+                <button onclick="appendNumber('1')">1</button>
+                <button onclick="appendNumber('2')">2</button>
+                <button onclick="appendNumber('3')">3</button>
+                <button onclick="chooseOperation('-')">-</button>
+                <button onclick="appendNumber('0')">0</button>
+                <button onclick="appendDot()">.</button>
+                <button onclick="clearDisplay()">C</button>
+                <button onclick="chooseOperation('+')">+</button>
+                <button onclick="compute()" class="equal">=</button>
             </div>
         </div>
 
         <div id="porcentaje" class="tabcontent">
-            <h2>Calculadora de Porcentajes</h2>
             <input type="number" id="percentageAmount" placeholder="Cantidad">
-            <input type="number" id="percentageValue" placeholder="Porcentaje (+ o -)">
+            <input type="number" id="percentageValue" placeholder="Porcentaje">
+            <select id="percentageType">
+                <option value="increase">Aumentar</option>
+                <option value="decrease">Disminuir</option>
+            </select>
             <button onclick="calculatePercentage()">Calcular</button>
             <p id="percentageResult"></p>
         </div>
 
         <div id="reglaDeTres" class="tabcontent">
-            <h2>Regla de Tres</h2>
             <div class="rule-of-three-grid">
                 <input type="number" id="xValue" placeholder="X">
                 <input type="number" id="xPercentage" placeholder="%">
@@ -64,7 +63,6 @@
         </div>
 
         <div id="conversor" class="tabcontent">
-            <h2>Conversor de Unidades</h2>
             <select id="convertFrom">
                 <option value="kgToLbs">Kilogramos a Libras</option>
                 <option value="lbsToKg">Libras a Kilogramos</option>
@@ -79,7 +77,7 @@
             <button onclick="convertUnits()">Convertir</button>
             <p id="convertResult"></p>
         </div>
-    </main>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
