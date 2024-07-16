@@ -45,11 +45,7 @@
         <div id="porcentaje" class="tabcontent">
             <h2>Calculadora de Porcentajes</h2>
             <input type="number" id="percentageAmount" placeholder="Cantidad">
-            <div class="percentage-input">
-                <button onclick="appendPercentageSign('+')">+</button>
-                <input type="number" id="percentageValue" placeholder="Porcentaje">
-                <button onclick="appendPercentageSign('-')">-</button>
-            </div>
+            <input type="number" id="percentageValue" placeholder="Porcentaje (+ o -)">
             <button onclick="calculatePercentage()">Calcular</button>
             <p id="percentageResult"></p>
         </div>
@@ -63,6 +59,7 @@
                 <input type="number" id="yPercentage" placeholder="%">
             </div>
             <button onclick="calculateRuleOfThree()">Calcular</button>
+            <button onclick="clearRuleOfThree()">Borrar</button>
             <p id="ruleOfThreeResult"></p>
         </div>
 
