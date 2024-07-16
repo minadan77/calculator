@@ -27,7 +27,7 @@ body {
     color: #ffffff;
     border: none;
     padding: 10px;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
     flex-grow: 1;
 }
@@ -52,13 +52,13 @@ body {
 
 input, select, button {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     margin: 5px 0;
     box-sizing: border-box;
     background-color: #4d4d4d;
     color: #ffffff;
     border: 1px solid #666666;
-    border-radius: 3px;
+    border-radius: 5px;
     font-size: 18px;
 }
 
@@ -116,13 +116,13 @@ button:hover {
     }
 
     .tab-button {
-        font-size: 12px;
-        padding: 8px;
+        font-size: 14px;
+        padding: 10px 5px;
     }
 
     input, select, button {
         font-size: 16px;
-        padding: 8px;
+        padding: 10px;
     }
 
     #calculator button {
