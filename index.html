@@ -8,9 +8,6 @@
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <header>
-        <h1>Calculadora PWA</h1>
-    </header>
     <main>
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'calculadora')">Calculadora</button>
@@ -48,17 +45,23 @@
         <div id="porcentaje" class="tabcontent">
             <h2>Calculadora de Porcentajes</h2>
             <input type="number" id="percentageAmount" placeholder="Cantidad">
-            <input type="number" id="percentageValue" placeholder="Porcentaje (+ o -)">
+            <div class="percentage-input">
+                <button onclick="appendPercentageSign('+')">+</button>
+                <input type="number" id="percentageValue" placeholder="Porcentaje">
+                <button onclick="appendPercentageSign('-')">-</button>
+            </div>
             <button onclick="calculatePercentage()">Calcular</button>
             <p id="percentageResult"></p>
         </div>
 
         <div id="reglaDeTres" class="tabcontent">
             <h2>Regla de Tres</h2>
-            <input type="number" id="xValue" placeholder="Cantidad X">
-            <input type="number" id="xPercentage" placeholder="Porcentaje de X">
-            <input type="number" id="yValue" placeholder="Cantidad Y">
-            <input type="number" id="yPercentage" placeholder="Porcentaje de Y">
+            <div class="rule-of-three-grid">
+                <input type="number" id="xValue" placeholder="X">
+                <input type="number" id="xPercentage" placeholder="%">
+                <input type="number" id="yValue" placeholder="Y">
+                <input type="number" id="yPercentage" placeholder="%">
+            </div>
             <button onclick="calculateRuleOfThree()">Calcular</button>
             <p id="ruleOfThreeResult"></p>
         </div>
@@ -70,6 +73,10 @@
                 <option value="lbsToKg">Libras a Kilogramos</option>
                 <option value="kmToMiles">Kilómetros a Millas</option>
                 <option value="milesToKm">Millas a Kilómetros</option>
+                <option value="knotsToKmh">Nudos a Kilómetros/Hora</option>
+                <option value="kmhToKnots">Kilómetros/Hora a Nudos</option>
+                <option value="hectaresToKm2">Hectáreas a Km²</option>
+                <option value="km2ToHectares">Km² a Hectáreas</option>
             </select>
             <input type="number" id="convertInput" placeholder="Cantidad">
             <button onclick="convertUnits()">Convertir</button>
