@@ -57,11 +57,7 @@ function calculatePercentage() {
     let amount = parseFloat(percentageAmount.value);
     let percentage = parseFloat(percentageValue.value);
     let result;
-    if (percentage > 0) {
-        result = amount + (amount * (percentage / 100));
-    } else {
-        result = amount + (amount * (percentage / 100));
-    }
+    result = amount + (amount * (percentage / 100));
     percentageResult.innerText = `Resultado: ${result}`;
     addToHistory(`Porcentaje de ${amount} con ${percentage}% -> ${result}`);
 }
@@ -87,6 +83,14 @@ function calculateRuleOfThree() {
     }
     ruleOfThreeResult.innerText = `Resultado: ${result}`;
     addToHistory(`Regla de tres: ${x} es a ${xPercent} como ${y} es a ${yPercent} -> ${result}`);
+}
+
+function clearRuleOfThree() {
+    xValue.value = '';
+    xPercentage.value = '';
+    yValue.value = '';
+    yPercentage.value = '';
+    ruleOfThreeResult.innerText = '';
 }
 
 function convertUnits() {
