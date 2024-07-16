@@ -10,7 +10,7 @@ document.querySelectorAll('.tab-button').forEach(button => {
 
 // Calculadora básica
 const display = document.getElementById('display');
-const buttons = document.querySelectorAll('#calculator button');
+const buttons = document.querySelectorAll('.calc-btn');
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
