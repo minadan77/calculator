@@ -36,7 +36,7 @@ h2 {
     transition: 0.3s;
     color: #ffffff;
     font-size: 1.1rem;
-    flex: 25%;
+    flex: 10%;
 }
 
 .tab button:hover {
