@@ -9,10 +9,12 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    max-width: 100%;
+    overflow: hidden;
 }
 
-h1 {
-    font-size: 2rem;
+h2 {
+    font-size: 1.5rem;
 }
 
 .tab {
@@ -22,6 +24,7 @@ h1 {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 .tab button {
@@ -29,12 +32,11 @@ h1 {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 10px;
     transition: 0.3s;
     color: #ffffff;
     font-size: 1.1rem;
     flex: 1;
-    max-width: 100px;
 }
 
 .tab button:hover {
@@ -49,9 +51,10 @@ h1 {
     display: none;
     padding: 6px 12px;
     border-top: none;
-    width: 100%;
+    width: 90%;
     max-width: 500px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 #calc {
@@ -75,7 +78,7 @@ h1 {
 }
 
 button {
-    padding: 20px;
+    padding: 15px;
     font-size: 1.5rem;
     background-color: #444444;
     border: none;
@@ -88,7 +91,7 @@ button:hover {
 }
 
 input[type="number"], input[type="text"] {
-    width: calc(100% - 22px);
+    width: 100%;
     padding: 10px;
     margin: 5px 0;
     font-size: 1.1rem;
@@ -96,6 +99,7 @@ input[type="number"], input[type="text"] {
     color: #ffffff;
     border: 1px solid #555555;
     text-align: right;
+    box-sizing: border-box;
 }
 
 .percentage-input {
@@ -104,22 +108,20 @@ input[type="number"], input[type="text"] {
     justify-content: center;
 }
 
-.percentage-input button {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    background-color: #444444;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.percentage-input button:hover {
-    background-color: #666666;
-}
-
 .rule-of-three-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 1.1rem;
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+    text-align: center;
+    box-sizing: border-box;
 }
