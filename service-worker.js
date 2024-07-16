@@ -1,19 +1,22 @@
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        if (response) {
-          // Return cached response if available
-          return response;
-        }
-        return fetch(event.request)
-          .then(function(response) {
-            // Cache the new response
-            caches.open('my-site-cache').then(function(cache) {
-              cache.put(event.request, response.clone());
-            });
-            return response;
-          });
-      })
-  );
+self.addEventListener('install', event => {
+    event.waitUntil(
+        caches.open('calc-pwa').then(cache => {
+            return cache.addAll([
+                '/',
+                '/index.html',
+                '/styles.css',
+                '/script.js',
+                '/manifest.json',
+                '/icon.png'
+            ]);
+        })
+    );
+});
+
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        caches.match(event.request).then(response => {
+            return response || fetch(event.request);
+        })
+    );
 });
