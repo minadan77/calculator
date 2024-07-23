@@ -4,74 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora PWA</title>
-    <link rel="manifest" href="./manifest.json">
-    <link rel="stylesheet" href="./styles.css">
-    <script src="./app.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <header>
-        <h1>Calculadora PWA</h1>
-    </header>
     <nav>
         <button data-tab="calculator">+-*/</button>
-        <button data-tab="percentage">%</button>
-        <button data-tab="rule-of-three">R3</button>
-        <button data-tab="conversion">Conv.</button>
+        <button data-tab="percent">%</button>
+        <button data-tab="r3">R3</button>
+        <button data-tab="conv">⧫</button> <!-- Usamos ⧫ para conversion -->
     </nav>
-    <main>
-        <section id="calculator" class="tab-content active">
-            <!-- Calculadora normal -->
-            <div id="calc-display">0</div>
-            <div id="calc-buttons">
-                <button>7</button><button>8</button><button>9</button><button>/</button>
-                <button>4</button><button>5</button><button>6</button><button>*</button>
-                <button>1</button><button>2</button><button>3</button><button>-</button>
-                <button>0</button><button>.</button><button>=</button><button>+</button>
-                <button id="clear">C</button>
-            </div>
-        </section>
-        <section id="percentage" class="tab-content">
-            <!-- Calculadora de porcentaje -->
-            <input type="number" id="percent-input" placeholder="Cantidad">
-            <input type="number" id="percent-value" placeholder="%">
-            <button id="percent-add">Sumar %</button>
-            <button id="percent-subtract">Restar %</button>
-            <div id="percent-result"></div>
-        </section>
-        <section id="rule-of-three" class="tab-content">
-            <!-- Regla de tres -->
-            <input type="number" id="a" placeholder="Cantidad A">
-            <input type="number" id="a-percent" placeholder="100%">
-            <input type="number" id="b" placeholder="Cantidad B">
-            <input type="number" id="b-percent" placeholder="%">
-            <button id="calculate-r3">Calcular</button>
-            <div id="r3-result"></div>
-        </section>
-        <section id="conversion" class="tab-content">
-            <!-- Conversión de unidades -->
-            <input type="number" id="convert-input" placeholder="Cantidad">
-            <select id="convert-from">
-                <option value="km-miles">Km a Millas</option>
-                <option value="ha-km2">Hectáreas a Km2</option>
-                <option value="lb-kg">Libras a Kilos</option>
-                <option value="knots-kmh">Nudos a Km/h</option>
-            </select>
-            <button id="convert">Convertir</button>
-            <div id="conversion-result"></div>
-        </section>
-    </main>
-    <footer>
-        <p>© 2024 Calculadora PWA</p>
-    </footer>
+    <div id="calculator" class="tab-content">
+        <div id="calc-display">0</div>
+        <div id="calc-buttons">
+            <button>C</button>
+            <button>(</button>
+            <button>)</button>
+            <button>/</button>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>*</button>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>-</button>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>+</button>
+            <button>0</button>
+            <button>.</button>
+            <button>=</button>
+        </div>
+    </div>
+    <div id="percent" class="tab-content">
+        <input type="number" id="percent-input" placeholder="Cantidad">
+        <input type="number" id="percent-value" placeholder="Porcentaje">
+        <button id="percent-add">Añadir</button>
+        <button id="percent-subtract">Restar</button>
+        <div id="percent-result"></div>
+    </div>
+    <div id="r3" class="tab-content">
+        <input type="number" id="a" placeholder="Cantidad A">
+        <input type="number" id="a-percent" placeholder="% A">
+        <input type="number" id="b" placeholder="Cantidad B">
+        <input type="number" id="b-percent" placeholder="% B">
+        <button id="calculate-r3">Calcular</button>
+        <div id="r3-result"></div>
+    </div>
+    <div id="conv" class="tab-content">
+        <input type="number" id="convert-input" placeholder="Cantidad">
+        <select id="convert-from">
+            <option value="km-miles">Km a Millas</option>
+            <option value="ha-km2">Hectáreas a Km²</option>
+            <option value="lb-kg">Libras a Kilos</option>
+            <option value="knots-kmh">Nudos a Km/h</option>
+        </select>
+        <button id="convert">Convertir</button>
+        <div id="conversion-result"></div>
+    </div>
+    <script src="app.js"></script>
     <script>
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("./service-worker.js")
-            .then(registration => {
-                console.log("Service Worker registered with scope:", registration.scope);
-            })
-            .catch(error => {
-                console.log("Service Worker registration failed:", error);
-            });
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registrado con alcance:', registration.scope);
+                })
+                .catch(error => {
+                    console.error('Error al registrar el Service Worker:', error);
+                });
         }
     </script>
 </body>
