@@ -1,15 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <!-- ... otros elementos ... -->
-    <link rel="stylesheet" href="/calculator/styles.css">
-    <link rel="manifest" href="/calculator/manifest.json">
-    <link rel="icon" href="/calculator/icon-192x192.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora PWA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon-192x192.png" type="image/png">
 </head>
 <body>
-    <!-- ... contenido del body ... -->
-    <script src="/calculator/app.js"></script>
+    <div id="app">
+        <div id="tabs">
+            <button class="tab-button active" data-tab="calculator">Calc</button>
+            <button class="tab-button" data-tab="percentage">%</button>
+            <button class="tab-button" data-tab="rule-of-three">R3</button>
+            <button class="tab-button" data-tab="unit-converter">Conv</button>
+        </div>
+
+        <div id="calculator" class="tab-content active">
+            <input type="text" id="display" readonly>
+            <div class="buttons">
+                <button class="calc-btn">7</button>
+                <button class="calc-btn">8</button>
+                <button class="calc-btn">9</button>
+                <button class="calc-btn">/</button>
+                <button class="calc-btn">4</button>
+                <button class="calc-btn">5</button>
+                <button class="calc-btn">6</button>
+                <button class="calc-btn">*</button>
+                <button class="calc-btn">1</button>
+                <button class="calc-btn">2</button>
+                <button class="calc-btn">3</button>
+                <button class="calc-btn">-</button>
+                <button class="calc-btn">0</button>
+                <button class="calc-btn">.</button>
+                <button class="calc-btn">=</button>
+                <button class="calc-btn">+</button>
+                <button class="calc-btn wide">C</button>
+            </div>
+        </div>
+
+        <div id="percentage" class="tab-content">
+            <input type="number" id="baseAmount" placeholder="Cantidad base">
+            <input type="number" id="percentageChange" placeholder="Cambio % (ej: -10 o 15)">
+            <button id="calculatePercentage">Calcular</button>
+            <div id="percentageResult"></div>
+        </div>
+
+        <div id="rule-of-three" class="tab-content">
+            <div class="rule-inputs">
+                <input type="number" id="x-value" placeholder="X">
+                <input type="number" id="x-percent" placeholder="%">
+                <input type="number" id="y-value" placeholder="Y">
+                <input type="number" id="y-percent" placeholder="%">
+            </div>
+            <button id="calculateRule">Calcular</button>
+            <button id="clearRule">Borrar</button>
+            <div id="ruleResult"></div>
+        </div>
+
+        <div id="unit-converter" class="tab-content">
+            <select id="conversionType">
+                <option value="length">Longitud</option>
+                <option value="weight">Peso</option>
+                <option value="temperature">Temperatura</option>
+                <option value="speed">Velocidad</option>
+                <option value="area">Área</option>
+            </select>
+            <input type="number" id="fromValue" placeholder="Valor a convertir">
+            <select id="fromUnit"></select>
+            <select id="toUnit"></select>
+            <div id="convertResult"></div>
+        </div>
+
+        <div id="history">
+            <h3>Historial</h3>
+            <ul id="historyList"></ul>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/calculator/service-worker.js');
+            navigator.serviceWorker.register('service-worker.js');
         }
     </script>
 </body>
+</html>
