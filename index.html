@@ -4,86 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora PWA</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
 </head>
 <body>
-    <div id="app">
-        <div id="tabs">
-            <button class="tab-button active" data-tab="calculator">Calc</button>
-            <button class="tab-button" data-tab="percentage">%</button>
-            <button class="tab-button" data-tab="rule-of-three">R3</button>
-            <button class="tab-button" data-tab="unit-converter">Conv</button>
-        </div>
-
-        <div id="calculator" class="tab-content active">
-            <input type="text" id="display" readonly>
-            <div class="buttons">
-                <button class="calc-btn">7</button>
-                <button class="calc-btn">8</button>
-                <button class="calc-btn">9</button>
-                <button class="calc-btn">/</button>
-                <button class="calc-btn">4</button>
-                <button class="calc-btn">5</button>
-                <button class="calc-btn">6</button>
-                <button class="calc-btn">*</button>
-                <button class="calc-btn">1</button>
-                <button class="calc-btn">2</button>
-                <button class="calc-btn">3</button>
-                <button class="calc-btn">-</button>
-                <button class="calc-btn">0</button>
-                <button class="calc-btn">.</button>
-                <button class="calc-btn">=</button>
-                <button class="calc-btn">+</button>
-                <button class="calc-btn wide">C</button>
+    <header>
+        <h1>Calculadora PWA</h1>
+    </header>
+    <nav>
+        <button data-tab="calculator">+-*/</button>
+        <button data-tab="percentage">%</button>
+        <button data-tab="rule-of-three">R3</button>
+        <button data-tab="conversion">Conversión</button>
+    </nav>
+    <main>
+        <section id="calculator" class="tab-content">
+            <!-- Calculadora normal -->
+            <div id="calc-display">0</div>
+            <div id="calc-buttons">
+                <button>7</button><button>8</button><button>9</button><button>/</button>
+                <button>4</button><button>5</button><button>6</button><button>*</button>
+                <button>1</button><button>2</button><button>3</button><button>-</button>
+                <button>0</button><button>.</button><button>=</button><button>+</button>
+                <button id="clear">C</button>
             </div>
-        </div>
-
-        <div id="percentage" class="tab-content">
-            <input type="number" id="baseAmount" placeholder="Cantidad base">
-            <input type="number" id="percentageChange" placeholder="Cambio % (ej: -10 o 15)">
-            <button id="calculatePercentage">Calcular</button>
-            <div id="percentageResult"></div>
-        </div>
-
-        <div id="rule-of-three" class="tab-content">
-            <div class="rule-inputs">
-                <input type="number" id="x-value" placeholder="X">
-                <input type="number" id="x-percent" placeholder="%">
-                <input type="number" id="y-value" placeholder="Y">
-                <input type="number" id="y-percent" placeholder="%">
-            </div>
-            <button id="calculateRule">Calcular</button>
-            <button id="clearRule">Borrar</button>
-            <div id="ruleResult"></div>
-        </div>
-
-        <div id="unit-converter" class="tab-content">
-            <select id="conversionType">
-                <option value="length">Longitud</option>
-                <option value="weight">Peso</option>
-                <option value="temperature">Temperatura</option>
-                <option value="speed">Velocidad</option>
-                <option value="area">Área</option>
+        </section>
+        <section id="percentage" class="tab-content">
+            <!-- Calculadora de porcentaje -->
+            <input type="number" id="percent-input" placeholder="Cantidad">
+            <input type="number" id="percent-value" placeholder="%">
+            <button id="percent-add">Sumar %</button>
+            <button id="percent-subtract">Restar %</button>
+            <div id="percent-result"></div>
+        </section>
+        <section id="rule-of-three" class="tab-content">
+            <!-- Regla de tres -->
+            <input type="number" id="a" placeholder="Cantidad A">
+            <input type="number" id="a-percent" placeholder="100%">
+            <input type="number" id="b" placeholder="Cantidad B">
+            <input type="number" id="b-percent" placeholder="%">
+            <button id="calculate-r3">Calcular</button>
+            <div id="r3-result"></div>
+        </section>
+        <section id="conversion" class="tab-content">
+            <!-- Conversión de unidades -->
+            <input type="number" id="convert-input" placeholder="Cantidad">
+            <select id="convert-from">
+                <option value="km-miles">Km a Millas</option>
+                <option value="ha-km2">Hectáreas a Km2</option>
+                <option value="lb-kg">Libras a Kilos</option>
+                <option value="knots-kmh">Nudos a Km/h</option>
             </select>
-            <input type="number" id="fromValue" placeholder="Valor a convertir">
-            <select id="fromUnit"></select>
-            <select id="toUnit"></select>
-            <div id="convertResult"></div>
-        </div>
-
-        <div id="history">
-            <h3>Historial</h3>
-            <ul id="historyList"></ul>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js');
-        }
-    </script>
+            <button id="convert">Convertir</button>
+            <div id="conversion-result"></div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Calculadora PWA</p>
+    </footer>
 </body>
 </html>
