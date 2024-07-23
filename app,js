@@ -2,15 +2,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabs = document.querySelectorAll("nav button");
     const tabContents = document.querySelectorAll(".tab-content");
 
+    function showTab(target) {
+        tabContents.forEach(tc => {
+            tc.classList.remove("active");
+        });
+        document.getElementById(target).classList.add("active");
+    }
+
     tabs.forEach(tab => {
         tab.addEventListener("click", () => {
             const target = tab.dataset.tab;
-            tabContents.forEach(tc => {
-                tc.classList.remove("active");
-            });
-            document.getElementById(target).classList.add("active");
+            showTab(target);
         });
     });
+
+    // Show the calculator tab by default
+    showTab("calculator");
 
     // Calculator functionality
     const calcDisplay = document.getElementById("calc-display");
@@ -21,7 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", () => {
             const value = button.textContent;
             if (value === "=") {
-                calcDisplay.textContent = eval(calcValue);
+                try {
+                    calcDisplay.textContent = eval(calcValue);
+                } catch (e) {
+                    calcDisplay.textContent = "Error";
+                }
                 calcValue = "";
             } else if (value === "C") {
                 calcValue = "";
