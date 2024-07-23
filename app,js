@@ -24,15 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const calcButtons = document.querySelectorAll("#calc-buttons button");
     let calcValue = "";
 
+    function calculateExpression(expression) {
+        try {
+            return new Function('return ' + expression)();
+        } catch (e) {
+            return "Error";
+        }
+    }
+
     calcButtons.forEach(button => {
         button.addEventListener("click", () => {
             const value = button.textContent;
             if (value === "=") {
-                try {
-                    calcDisplay.textContent = eval(calcValue);
-                } catch (e) {
-                    calcDisplay.textContent = "Error";
-                }
+                calcDisplay.textContent = calculateExpression(calcValue);
                 calcValue = "";
             } else if (value === "C") {
                 calcValue = "";
