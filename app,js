@@ -1,188 +1,192 @@
 // Funcionalidad de las pestañas
-document.querySelectorAll('.tab-button').forEach(button => {
-    button.addEventListener('click', () => {
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-        button.classList.add('active');
-        document.getElementById(button.dataset.tab).classList.add('active');
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Calculadora PWA iniciada');
+
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            button.classList.add('active');
+            document.getElementById(button.dataset.tab).classList.add('active');
+        });
     });
-});
 
-// Calculadora básica
-const display = document.getElementById('display');
-const buttons = document.querySelectorAll('.calc-btn');
+    // Calculadora básica
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('.calc-btn');
 
-buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        if (button.textContent === '=') {
-            try {
-                display.value = eval(display.value);
-                addToHistory(display.value);
-            } catch (error) {
-                display.value = 'Error';
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.textContent === '=') {
+                try {
+                    display.value = eval(display.value);
+                    addToHistory(`${display.value} = ${display.value}`);
+                } catch (error) {
+                    display.value = 'Error';
+                }
+            } else if (button.textContent === 'C') {
+                display.value = '';
+            } else {
+                display.value += button.textContent;
             }
-        } else if (button.textContent === 'C') {
-            display.value = '';
-        } else {
-            display.value += button.textContent;
+        });
+    });
+
+    // Cálculo de porcentaje
+    document.getElementById('calculatePercentage').addEventListener('click', () => {
+        const base = parseFloat(document.getElementById('baseAmount').value);
+        const change = parseFloat(document.getElementById('percentageChange').value);
+        if (!isNaN(base) && !isNaN(change)) {
+            const result = base * (1 + change / 100);
+            document.getElementById('percentageResult').textContent = `Resultado: ${result.toFixed(2)}`;
+            addToHistory(`${base} + ${change}% = ${result.toFixed(2)}`);
         }
     });
-});
 
-// Cálculo de porcentaje
-document.getElementById('calculatePercentage').addEventListener('click', () => {
-    const base = parseFloat(document.getElementById('baseAmount').value);
-    const change = parseFloat(document.getElementById('percentageChange').value);
-    if (!isNaN(base) && !isNaN(change)) {
-        const result = base * (1 + change / 100);
-        document.getElementById('percentageResult').textContent = `Resultado: ${result.toFixed(2)}`;
-        addToHistory(`${base} + ${change}% = ${result.toFixed(2)}`);
-    }
-});
+    // Regla de tres
+    document.getElementById('calculateRule').addEventListener('click', () => {
+        const x = parseFloat(document.getElementById('x-value').value);
+        const xPercent = parseFloat(document.getElementById('x-percent').value);
+        const y = parseFloat(document.getElementById('y-value').value);
+        const yPercent = parseFloat(document.getElementById('y-percent').value);
 
-// Regla de tres
-document.getElementById('calculateRule').addEventListener('click', () => {
-    const x = parseFloat(document.getElementById('x-value').value);
-    const xPercent = parseFloat(document.getElementById('x-percent').value);
-    const y = parseFloat(document.getElementById('y-value').value);
-    const yPercent = parseFloat(document.getElementById('y-percent').value);
-
-    if (!isNaN(x) && !isNaN(xPercent) && !isNaN(y) && isNaN(yPercent)) {
-        const result = (y * xPercent) / x;
-        document.getElementById('ruleResult').textContent = `Resultado: ${result.toFixed(2)}%`;
-        addToHistory(`Regla de tres: ${x} es a ${xPercent}% como ${y} es a ${result.toFixed(2)}%`);
-    } else if (!isNaN(x) && !isNaN(xPercent) && isNaN(y) && !isNaN(yPercent)) {
-        const result = (x * yPercent) / xPercent;
-        document.getElementById('ruleResult').textContent = `Resultado: ${result.toFixed(2)}`;
-        addToHistory(`Regla de tres: ${x} es a ${xPercent}% como ${result.toFixed(2)} es a ${yPercent}%`);
-    } else {
-        document.getElementById('ruleResult').textContent = 'Por favor, deje un campo vacío para calcular';
-    }
-});
-
-document.getElementById('clearRule').addEventListener('click', () => {
-    document.getElementById('x-value').value = '';
-    document.getElementById('x-percent').value = '';
-    document.getElementById('y-value').value = '';
-    document.getElementById('y-percent').value = '';
-    document.getElementById('ruleResult').textContent = '';
-});
-
-// Conversor de unidades
-const conversionFactors = {
-    length: {
-        m: 1,
-        km: 1000,
-        cm: 0.01,
-        mm: 0.001,
-        in: 0.0254,
-        ft: 0.3048,
-        yd: 0.9144,
-        mi: 1609.34
-    },
-    weight: {
-        kg: 1,
-        g: 0.001,
-        mg: 0.000001,
-        lb: 0.453592,
-        oz: 0.0283495
-    },
-    temperature: {
-        C: x => x,
-        F: x => (x - 32) * 5/9,
-        K: x => x - 273.15
-    },
-    speed: {
-        'km/h': 1,
-        'mph': 1.60934,
-        'm/s': 3.6,
-        'knot': 1.852
-    },
-    area: {
-        'm²': 1,
-        'km²': 1000000,
-        'ha': 10000,
-        'acre': 4046.86
-    }
-};
-
-const conversionType = document.getElementById('conversionType');
-const fromUnit = document.getElementById('fromUnit');
-const toUnit = document.getElementById('toUnit');
-const fromValue = document.getElementById('fromValue');
-const convertResult = document.getElementById('convertResult');
-
-conversionType.addEventListener('change', updateUnitOptions);
-fromUnit.addEventListener('change', convert);
-toUnit.addEventListener('change', convert);
-fromValue.addEventListener('input', convert);
-
-function updateUnitOptions() {
-    const units = Object.keys(conversionFactors[conversionType.value]);
-    fromUnit.innerHTML = '';
-    toUnit.innerHTML = '';
-    units.forEach(unit => {
-        fromUnit.add(new Option(unit, unit));
-        toUnit.add(new Option(unit, unit));
-    });
-    convert();
-}
-
-function convert() {
-    const from = fromUnit.value;
-    const to = toUnit.value;
-    const value = parseFloat(fromValue.value);
-    
-    if (!isNaN(value)) {
-        let result;
-        if (conversionType.value === 'temperature') {
-            const toCelsius = conversionFactors.temperature[from];
-            const fromCelsius = x => {
-                if (to === 'C') return x;
-                if (to === 'F') return x * 9/5 + 32;
-                if (to === 'K') return x + 273.15;
-            };
-            result = fromCelsius(toCelsius(value));
+        if (!isNaN(x) && !isNaN(xPercent) && !isNaN(y) && isNaN(yPercent)) {
+            const result = (y * xPercent) / x;
+            document.getElementById('ruleResult').textContent = `Resultado: ${result.toFixed(2)}%`;
+            addToHistory(`Regla de tres: ${x} es a ${xPercent}% como ${y} es a ${result.toFixed(2)}%`);
+        } else if (!isNaN(x) && !isNaN(xPercent) && isNaN(y) && !isNaN(yPercent)) {
+            const result = (x * yPercent) / xPercent;
+            document.getElementById('ruleResult').textContent = `Resultado: ${result.toFixed(2)}`;
+            addToHistory(`Regla de tres: ${x} es a ${xPercent}% como ${result.toFixed(2)} es a ${yPercent}%`);
         } else {
-            const factor = conversionFactors[conversionType.value][to] / conversionFactors[conversionType.value][from];
-            result = value * factor;
+            document.getElementById('ruleResult').textContent = 'Por favor, deje un campo vacío para calcular';
         }
-        convertResult.textContent = `${value} ${from} = ${result.toFixed(4)} ${to}`;
-        addToHistory(`${value} ${from} = ${result.toFixed(4)} ${to}`);
-    } else {
-        convertResult.textContent = 'Ingrese un valor válido';
+    });
+
+    document.getElementById('clearRule').addEventListener('click', () => {
+        document.getElementById('x-value').value = '';
+        document.getElementById('x-percent').value = '';
+        document.getElementById('y-value').value = '';
+        document.getElementById('y-percent').value = '';
+        document.getElementById('ruleResult').textContent = '';
+    });
+
+    // Conversor de unidades
+    const conversionFactors = {
+        length: {
+            m: 1,
+            km: 1000,
+            cm: 0.01,
+            mm: 0.001,
+            in: 0.0254,
+            ft: 0.3048,
+            yd: 0.9144,
+            mi: 1609.34
+        },
+        weight: {
+            kg: 1,
+            g: 0.001,
+            mg: 0.000001,
+            lb: 0.453592,
+            oz: 0.0283495
+        },
+        temperature: {
+            C: x => x,
+            F: x => (x - 32) * 5/9,
+            K: x => x - 273.15
+        },
+        speed: {
+            'km/h': 1,
+            'mph': 1.60934,
+            'm/s': 3.6,
+            'knot': 1.852
+        },
+        area: {
+            'm²': 1,
+            'km²': 1000000,
+            'ha': 10000,
+            'acre': 4046.86
+        }
+    };
+
+    const conversionType = document.getElementById('conversionType');
+    const fromUnit = document.getElementById('fromUnit');
+    const toUnit = document.getElementById('toUnit');
+    const fromValue = document.getElementById('fromValue');
+    const convertResult = document.getElementById('convertResult');
+
+    conversionType.addEventListener('change', updateUnitOptions);
+    fromUnit.addEventListener('change', convert);
+    toUnit.addEventListener('change', convert);
+    fromValue.addEventListener('input', convert);
+
+    function updateUnitOptions() {
+        const units = Object.keys(conversionFactors[conversionType.value]);
+        fromUnit.innerHTML = '';
+        toUnit.innerHTML = '';
+        units.forEach(unit => {
+            fromUnit.add(new Option(unit, unit));
+            toUnit.add(new Option(unit, unit));
+        });
+        convert();
     }
-}
 
-updateUnitOptions();
-
-// Historial
-function addToHistory(operation) {
-    const historyList = document.getElementById('historyList');
-    const li = document.createElement('li');
-    li.textContent = operation;
-    historyList.prepend(li);
-    
-    if (historyList.children.length > 20) {
-        historyList.removeChild(historyList.lastChild);
+    function convert() {
+        const from = fromUnit.value;
+        const to = toUnit.value;
+        const value = parseFloat(fromValue.value);
+        
+        if (!isNaN(value)) {
+            let result;
+            if (conversionType.value === 'temperature') {
+                const toCelsius = conversionFactors.temperature[from];
+                const fromCelsius = x => {
+                    if (to === 'C') return x;
+                    if (to === 'F') return x * 9/5 + 32;
+                    if (to === 'K') return x + 273.15;
+                };
+                result = fromCelsius(toCelsius(value));
+            } else {
+                const factor = conversionFactors[conversionType.value][to] / conversionFactors[conversionType.value][from];
+                result = value * factor;
+            }
+            convertResult.textContent = `${value} ${from} = ${result.toFixed(4)} ${to}`;
+            addToHistory(`${value} ${from} = ${result.toFixed(4)} ${to}`);
+        } else {
+            convertResult.textContent = 'Ingrese un valor válido';
+        }
     }
-    
-    // Guardar en localStorage
-    const history = JSON.parse(localStorage.getItem('calculatorHistory') || '[]');
-    history.unshift(operation);
-    if (history.length > 20) history.pop();
-    localStorage.setItem('calculatorHistory', JSON.stringify(history));
-}
 
-// Cargar historial al iniciar
-function loadHistory() {
-    const history = JSON.parse(localStorage.getItem('calculatorHistory') || '[]');
-    const historyList = document.getElementById('historyList');
-    history.forEach(operation => {
+    updateUnitOptions();
+
+    // Historial
+    function addToHistory(operation) {
+        const historyList = document.getElementById('historyList');
         const li = document.createElement('li');
         li.textContent = operation;
-        historyList.appendChild(li);
-    });
-}
+        historyList.prepend(li);
+        
+        if (historyList.children.length > 20) {
+            historyList.removeChild(historyList.lastChild);
+        }
+        
+        // Guardar en localStorage
+        const history = JSON.parse(localStorage.getItem('calculatorHistory') || '[]');
+        history.unshift(operation);
+        if (history.length > 20) history.pop();
+        localStorage.setItem('calculatorHistory', JSON.stringify(history));
+    }
 
-loadHistory();
+    // Cargar historial al iniciar
+    function loadHistory() {
+        const history = JSON.parse(localStorage.getItem('calculatorHistory') || '[]');
+        const historyList = document.getElementById('historyList');
+        history.forEach(operation => {
+            const li = document.createElement('li');
+            li.textContent = operation;
+            historyList.appendChild(li);
+        });
+    }
+
+    loadHistory();
+});
