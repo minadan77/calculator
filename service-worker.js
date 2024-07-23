@@ -1,14 +1,11 @@
 const CACHE_NAME = 'calculator-pwa-v1';
 const urlsToCache = [
-  '/calculator/',
-  '/calculator/index.html',
-  '/calculator/styles.css',
-  '/calculator/app.js',
-  '/calculator/icon-192x192.png',
-  '/calculator/icon-512x512.png'
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/app.js',
+  '/icon.png'
 ];
-
-// ... resto del código ...
 
 self.addEventListener('install', event => {
   event.waitUntil(
