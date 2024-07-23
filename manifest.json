@@ -1,15 +1,20 @@
 {
     "name": "Calculadora PWA",
     "short_name": "CalcPWA",
-    "description": "Una calculadora PWA con funciones avanzadas",
-    "start_url": "/",
+    "start_url": ".",
     "display": "standalone",
     "background_color": "#000000",
-    "theme_color": "#0066cc",
+    "theme_color": "#000000",
+    "description": "Una calculadora PWA con funciones adicionales.",
     "icons": [
         {
-            "src": "icon.png",
+            "src": "icon-192.png",
             "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
             "type": "image/png"
         }
     ]
