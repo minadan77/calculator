@@ -16,10 +16,10 @@
         <button data-tab="calculator">+-*/</button>
         <button data-tab="percentage">%</button>
         <button data-tab="rule-of-three">R3</button>
-        <button data-tab="conversion">Conversión</button>
+        <button data-tab="conversion">Conv.</button>
     </nav>
     <main>
-        <section id="calculator" class="tab-content">
+        <section id="calculator" class="tab-content active">
             <!-- Calculadora normal -->
             <div id="calc-display">0</div>
             <div id="calc-buttons">
@@ -65,7 +65,7 @@
     </footer>
     <script>
         if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("service-worker.js")
+            navigator.serviceWorker.register("./service-worker.js")
             .then(registration => {
                 console.log("Service Worker registered with scope:", registration.scope);
             })
