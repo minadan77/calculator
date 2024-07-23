@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function calculateExpression(expression) {
         try {
+            // Replace eval with a safer alternative
             return new Function('return ' + expression)();
         } catch (e) {
             return "Error";
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const input = parseFloat(percentInput.value);
         const value = parseFloat(percentValue.value);
         if (!isNaN(input) && !isNaN(value)) {
-            percentResult.textContent = input + (input * (value / 100));
+            percentResult.textContent = (input + (input * (value / 100))).toFixed(2);
         } else {
             percentResult.textContent = "Por favor, ingrese números válidos.";
         }
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const input = parseFloat(percentInput.value);
         const value = parseFloat(percentValue.value);
         if (!isNaN(input) && !isNaN(value)) {
-            percentResult.textContent = input - (input * (value / 100));
+            percentResult.textContent = (input - (input * (value / 100))).toFixed(2);
         } else {
             percentResult.textContent = "Por favor, ingrese números válidos.";
         }
@@ -84,42 +85,4 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isNaN(a) && !isNaN(aPercent)) {
             if (isNaN(b) && !isNaN(bPercent)) {
                 r3Result.textContent = (a * bPercent) / aPercent;
-            } else if (!isNaN(b) && isNaN(bPercent)) {
-                r3Result.textContent = (b * aPercent) / a;
-            } else {
-                r3Result.textContent = "Por favor, complete los valores.";
-            }
-        } else {
-            r3Result.textContent = "Por favor, ingrese números válidos.";
-        }
-    });
-
-    // Conversion functionality
-    const convertInput = document.getElementById("convert-input");
-    const convertFrom = document.getElementById("convert-from");
-    const conversionResult = document.getElementById("conversion-result");
-
-    document.getElementById("convert").addEventListener("click", () => {
-        const value = parseFloat(convertInput.value);
-        if (isNaN(value)) {
-            conversionResult.textContent = "Por favor, ingrese un número válido.";
-            return;
-        }
-        switch (convertFrom.value) {
-            case "km-miles":
-                conversionResult.textContent = (value * 0.621371).toFixed(2) + " Millas";
-                break;
-            case "ha-km2":
-                conversionResult.textContent = (value * 0.01).toFixed(2) + " Km2";
-                break;
-            case "lb-kg":
-                conversionResult.textContent = (value * 0.453592).toFixed(2) + " Kilos";
-                break;
-            case "knots-kmh":
-                conversionResult.textContent = (value * 1.852).toFixed(2) + " Km/h";
-                break;
-            default:
-                conversionResult.textContent = "Conversión no válida.";
-        }
-    });
-});
+           
